@@ -1,26 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: chopp
-  Date: 6/1/2022
-  Time: 5:17 PM
-  To change this template use File | Settings | File Templates.
---%>
 
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title>Title</title>--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<h1> danh sách sản phẩm</h1>--%>
-<%--<c:forEach var="pr" items="${prod}">--%>
-<%--    <h2>${pr.id}, ${pr.name},${pr.price},${pr.quantity},${pr.color},${pr.category.name}</h2>--%>
-<%--</c:forEach>--%>
-<%--</body>--%>
-
-<%--</html>--%>
-
-
-<%----%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -47,7 +25,7 @@
                         <a href="#"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Students?action=create">Add Student</a>
+                        <a class="nav-link" href="/ProductS?action=create">Add New Product</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -75,7 +53,24 @@
     </div>
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-3">
+            <h3 style="text-align: center">Category List</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="ct" items="${cate}">
+                    <tr>
+                        <td>${ct.name}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-19">
             <h3 style="text-align: center"> Danh Sách sản phẩm</h3>
             <table class="table table-striped">
                 <thead>
@@ -106,8 +101,6 @@
                             <a class="btn btn-danger">Xóa</a>
                         </td>
                     </tr>
-
-
 <%--                            <form action="/Students" method="get" id="delete${pr.id}" style="display: inline">--%>
 <%--                                <input type="hidden" name="action" value="delete">--%>
 <%--                                <input type="hidden" name="id" value="${pr.id}">--%>

@@ -39,7 +39,6 @@ public class CategoryServiceImpl implements CategoryService {
             }
         } catch (SQLException e) {
         }
-
         return categories;
 
     }

@@ -34,26 +34,36 @@ public class ProductServiceImpl implements ProductService{
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
-
                 String name = rs.getString("name");
-                int price = rs.getInt("price");
+                double price = rs.getInt("price");
                 int quantity = rs.getInt("quantity");
                 String color = rs.getString("color");
-                int categoryId = rs.getInt("categoryId");
                 String description = rs.getString("description");
+                int categoryId = rs.getInt("categoryId");
                 Category category = categoryService.findById(categoryId);
                 products.add(new Product(id, name, price, quantity,color, description, category));
             }
         } catch (SQLException e) {
         }
-
         return products;
     }
 
     @Override
     public void add(Product product) throws SQLException {
-
+        try (Connection connection =getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("insert into thuchanhmd3.product(id,name,price,quantity,color,description,categoryId)values (?,?,?,?,?,?,?)");) {
+            preparedStatement.setInt(1, product.getId());
+            preparedStatement.setString(2, product.getName());
+            preparedStatement.setDouble(3,product.getPrice());
+            preparedStatement.setInt(4,product.getQuantity());
+            preparedStatement.setString(5, product.getColor());
+            preparedStatement.setString(6, product.getDescription());
+            preparedStatement.setInt(7,product.getCategory().getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+        }
     }
+
 
     @Override
     public Product findById(int id) {
@@ -62,7 +72,13 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void delete(int id) throws SQLException {
-
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("delete from product where id =?");) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
