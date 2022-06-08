@@ -38,9 +38,22 @@ public class ProductServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "view":
+                showViewForm(request,response);
+
+                break;
             default:
                 showList(request, response);
         }
+    }
+
+    private void showViewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Category> categories = categoryService.findAll();
+        request.setAttribute("ct", categories);
+        int id =Integer.parseInt(request.getParameter("id"));
+        Product product =productService.findById(id);
+        request.setAttribute("pr",product);
+        request.getRequestDispatcher("product/view.jsp").forward(request,response);
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -95,3 +108,4 @@ public class ProductServlet extends HttpServlet {
         response.sendRedirect("/ProductS");
     }
 }
+

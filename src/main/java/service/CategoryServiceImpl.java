@@ -52,7 +52,6 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findById(int id) {
         Category category = new Category();
         try (Connection connection = getConnection();
-
              PreparedStatement preparedStatement = connection.prepareStatement("select * from category where id = ?");) {
             preparedStatement.setInt(1,id);
             System.out.println(preparedStatement);
@@ -65,7 +64,6 @@ public class CategoryServiceImpl implements CategoryService {
         } catch (SQLException e) {
         }
         return category;
-
     }
 
     @Override

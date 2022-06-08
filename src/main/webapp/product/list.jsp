@@ -43,8 +43,8 @@
                     </li>
                 </ul>
                 <form method="post">
-                    <input type="text" name="name" placeholder="ten can tim">
-                    <button>Tìm</button>
+                    <input type="text" name="name" placeholder="find product name">
+                    <button>Search</button>
                 </form>
 
             </div>
@@ -71,7 +71,7 @@
             </table>
         </div>
         <div class="col-19">
-            <h3 style="text-align: center"> Danh Sách sản phẩm</h3>
+            <h3 style="text-align: center"> Product List</h3>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -98,16 +98,15 @@
                         <td>
                             <a class="btn btn-primary" href="/ProductS?action=view&id=${pr.id}">View</a>
                             <a class="btn btn-secondary">Sửa</a>
-                            <a class="btn btn-danger">Xóa</a>
+                           <form action="/ProductS" method="get" id="delete${pr.id}" style="display: inline">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id" value="${pr.id}">
+                            <a class="btn btn-danger" onclick="xacNhanDelete(${pr.id})">Xoá</a>
+
+                           </form>
+
                         </td>
-                    </tr>
-<%--                            <form action="/Students" method="get" id="delete${pr.id}" style="display: inline">--%>
-<%--                                <input type="hidden" name="action" value="delete">--%>
-<%--                                <input type="hidden" name="id" value="${pr.id}">--%>
-<%--                                <a class="btn btn-danger" onclick="xacNhanDelete(${pr.id})">Xoá</a>--%>
-
-<%--                            </form>--%>
-
+                      </tr>
 
                 </c:forEach>
                 </tbody>

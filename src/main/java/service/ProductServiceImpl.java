@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService{
 
         try (Connection connection = getConnection();
 
-             PreparedStatement preparedStatement = connection.prepareStatement("select * from product");) {
+             PreparedStatement preparedStatement = connection.prepareStatement("select * from product where price>200");) {
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -67,7 +67,25 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product findById(int id) {
-        return null;
+        Product product = new Product();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("select * from product where id = ?");) {
+            preparedStatement.setInt(1,id);
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int idp = rs.getInt("id");
+                String name = rs.getString("name");
+                double price = rs.getDouble("price");
+                int quantity = rs.getInt("quantity");
+                String color = rs.getString("color");
+                int categoryId = rs.getInt("categoryId");
+                Category category =categoryService.findById(categoryId);
+                product =new Product(id,name,price,quantity,color,category);
+            }
+        } catch (SQLException e) {
+        }
+        return product;
     }
 
     @Override
